@@ -1,0 +1,54 @@
+﻿@page
+@model Web.Pages.Store.DetailsModel
+
+@{
+    ViewData["Title"] = Model.Store.Name;
+}
+
+<style>
+    .profile-image {
+        width: 150px; /* largura da imagem */
+        height: 150px; /* altura da imagem */
+        border-radius: 5%;
+        border: 1px solid grey; /* borda branca */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* sombra suave */]
+    }
+</style>
+
+<div class="row">
+    <div class="col-6 d-flex">
+        <img class="profile-image" src="data:image/jpg;base64,@Model.Store.ImageBase64" style="width: 100px; height: 100px" />
+        <div>
+            <h2 class="ms-2">@Model.Store.Name</h2>
+            <h6 class="ms-2">Endereço: @Model.Store.Address</h6>
+            <h6 class="ms-2">Telefone: @Model.Store.Phone</h6>
+        </div>
+    </div>
+    <div class="col-6 d-flex justify-content-end align-items-start">
+        <a class="btn btn-primary me-2" asp-page="Index">
+            Voltar
+        </a>
+        <form method="post" asp-page-handler="Delete" asp-route-id="@Model.Store.Id">
+            <button type="submit" class="btn btn-danger">
+                Excluir
+            </button>
+        </form>
+    </div>
+</div>
+
+<hr />
+
+<div class="row">
+    <div class="col-12 d-flex gap-2">
+        <a class="btn btn-primary w-100" asp-page="Edit" asp-route-id="@Model.Store.Id">
+            <i class="fa-solid fa-edit"></i><br />
+            Gerenciar estabelecimento
+        </a>
+
+        <a class="btn btn-primary w-100" asp-page="../Table/Management" asp-route-storeId="@Model.Store.Id">
+            <i class="fa-solid fa-link"></i><br />
+            Gerenciador de mesas disponíveis
+        </a>
+    </div>
+</div>
+
