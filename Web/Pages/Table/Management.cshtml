@@ -6,7 +6,7 @@
 }
 
 <div>
-    <a class="btn btn-primary" asp-page="../Store/Details" asp-route-id="@Model.Tables[0].StoreId">
+    <a class="btn btn-primary" asp-page="../Store/Details" asp-route-id="@ViewData["StoreId"]">
         <i class="fa fa-arrow-left"></i>
         Voltar
     </a>
@@ -15,24 +15,33 @@
 <hr />
 
 <div class="row">
-    @foreach (var item in Model.Tables)
+    @if (Model.Tables.Any())
     {
-        <div class="col-sm-4 col-md-4 col-lg-2">
-            <div class="card shadow-sm">
-                <div class="@(!item.IsAvailable ? "bg-danger" : "bg-success") card-img-top" style="height: 16px"></div>
-                <div class="card-body d-flex flex-column gap-4">
-                    <span class="card-text">Table Number: @item.Number</span>
-                    <span class="card-text">Capacity: @item.SeatsNumber</span>
+        @foreach (var item in Model.Tables)
+        {
+            <div class="col-sm-4 col-md-4 col-lg-2">
+                <div class="card shadow-sm">
+                    <div class="@(!item.IsAvailable ? "bg-danger" : "bg-success") card-img-top" style="height: 16px"></div>
+                    <div class="card-body d-flex flex-column gap-4">
+                        <span class="card-text">Table Number: @item.Number</span>
+                        <span class="card-text">Capacity: @item.SeatsNumber</span>
 
-                    <form method="POST" >
-                        <input type="hidden" name="@nameof(item.Id)" value="@item.Id" />
-                        <input type="hidden" name="@nameof(item.IsAvailable)" value="@(!item.IsAvailable ? "true" : "false")" />
-                        <button class="btn btn-primary w-100" type="submit">
-                            @("Marcar como " + (item.IsAvailable ? "indisponível" : "disponível"))
-                        </button>
-                    </form>
+                        <form method="POST">
+                            <input type="hidden" name="@nameof(item.Id)" value="@item.Id" />
+                            <input type="hidden" name="@nameof(item.IsAvailable)" value="@(!item.IsAvailable ? "true" : "false")" />
+                            <button class="btn btn-primary w-100" type="submit">
+                                @("Marcar como " + (item.IsAvailable ? "indisponível" : "disponível"))
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
+        }
+    }
+    else
+    {
+        <div class="d-flex justify-content-center">
+            <span>Nenhuma mesa cadastrada.</span>
         </div>
     }
 </div>

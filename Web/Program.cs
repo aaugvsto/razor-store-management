@@ -1,37 +1,25 @@
 using DataAccess;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
 // Add services to the container.
-builder.Services.AddIdentity<IdentityUser, IdentityRole>(opt =>
-{
-    opt.User.RequireUniqueEmail = true;
-    opt.Password.RequireNonAlphanumeric = false;
-    opt.Password.RequireUppercase = false;
-    opt.Password.RequireLowercase = false;
-    opt.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(2);
-    opt.Lockout.MaxFailedAccessAttempts = 3;
-    opt.SignIn.RequireConfirmedAccount = false;
-    opt.SignIn.RequireConfirmedEmail = false;
-    opt.SignIn.RequireConfirmedPhoneNumber = false;
-}).AddEntityFrameworkStores<DBContext>();
-
-builder.Services.ConfigureApplicationCookie(opt =>
-{
-    opt.Cookie.HttpOnly = true;
-    opt.ExpireTimeSpan = TimeSpan.FromMinutes(5);
-    opt.LoginPath = "/Login/Index";
-    opt.AccessDeniedPath = "/Login/Index";
-    opt.SlidingExpiration = true;
-});
-
 builder.Services.AddDbContext<DBContext>();
 
 builder.Services.AddAuthorization();
 
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages().AddRazorPagesOptions(opts =>
+{
+    opts.RootDirectory = "/Pages";
+    opts.Conventions.AddPageRoute("/Login", "");
+});
+
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromHours(8);
+});
 
 var app = builder.Build();
 
@@ -52,5 +40,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();
+
+app.UseSession();
 
 app.Run();

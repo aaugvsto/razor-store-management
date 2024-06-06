@@ -23,18 +23,18 @@ namespace Web.Pages.User
         [BindProperty]
         public Domain.Entities.User User { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync()
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            var userId = HttpContext.Session.GetInt32("UID");
 
-            var user =  await _context.Users.FirstOrDefaultAsync(m => m.Id == id);
+            if (userId is null)
+                return RedirectToPage("../Index");
+
+            var user =  await _context.Users.FirstOrDefaultAsync(m => m.Id == userId);
+
             if (user == null)
-            {
                 return NotFound();
-            }
+
             User = user;
             return Page();
         }

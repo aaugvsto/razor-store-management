@@ -22,9 +22,14 @@ namespace Web.Pages.Store
 
         public IActionResult OnGet()
         {
+            var userId = HttpContext.Session.GetInt32("UID");
+
+            if (userId is null)
+                return RedirectToPage("../Index");
+
             Store = new Domain.Entities.Store
             {
-                UserId = 1
+                UserId = (int)userId
             };
 
             return Page();

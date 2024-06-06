@@ -1,12 +1,16 @@
 ﻿@model IList<Domain.Entities.Table>
 
+@{
+    var storeId = ViewData["StoreId"];
+}
+
 <div class="mt-4 d-flex flex-column">
     <div class="row">
         <div class="col-6">
             <h4>Gerenciar mesas</h4>
         </div>
         <div class="col-6 d-flex justify-content-end">
-            <a class="btn btn-primary" asp-page="../Table/Create" asp-route-storeId="7">Adicionar nova mesa</a>
+            <a class="btn btn-primary" asp-page="../Table/Create" asp-route-storeId="@storeId">Adicionar nova mesa</a>
         </div>
     </div>
 

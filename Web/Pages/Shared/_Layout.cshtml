@@ -11,7 +11,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Web</title>
+    <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Web.styles.css" asp-append-version="true" />
@@ -23,10 +23,10 @@
                 <div class="d-flex flex-column">
                     @foreach (var item in menuItems)
                     {
-                        <a class="nav-link text-dark text-center" asp-page="@item.Link">
+                        <a class="text-decoration-none text-dark text-center m-2" asp-page="@item.Link">
                             <span class="ms-1">
                                 @item.Text
-                            </span>
+                            </span> 
                         </a>
                     }
                 </div>

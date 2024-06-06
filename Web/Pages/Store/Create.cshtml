@@ -36,13 +36,13 @@
                 <span asp-validation-for="Store.Phone" class="text-danger"></span>
             </div>
             <div class="form-group mb-2">
-                <label for="file">Logo</label>
-                <input type="file" class="form-control" id="file" name="file" />
-                <span asp-validation-for="Store.ImageBase64" class="text-danger"></span>
+                <label asp-for="Store.ImageBase64" class="control-label"></label>
+                <input class="form-control" type="file" id="fileForm" name="file"/>
+                <span id="validationImage" class="text-danger">O campo Logo é obrigatório.</span>
             </div>
             <input type="hidden" asp-for="Store.UserId" />
             <div class="form-group">
-                <input type="submit" value="Criar nova loja" class="btn btn-primary w-100" />
+                <input type="button" id="btnForm" value="Criar nova loja" class="btn btn-primary w-100" />
             </div>
         </form>
     </div>
@@ -50,4 +50,22 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    @* <script>
+        $(document).ready(function () {
+            $("#validationImage").hide();
+        })
+
+        $("#btnForm").on("click", function () {
+            let input = $("#fileForm")[0];
+
+            if (input.files.length === 1) {
+                $("#validationImage").hide();
+                input.closest('form').submit();
+                return
+            }
+
+            $("#validationImage").show();
+        })
+    </script> *@
 }

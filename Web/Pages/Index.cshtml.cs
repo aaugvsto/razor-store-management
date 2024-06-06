@@ -1,20 +1,45 @@
+using DataAccess;
+using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace Web.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
+        private readonly DBContext _context;
 
-        public IndexModel(ILogger<IndexModel> logger)
+
+        [BindProperty]
+        public Domain.Entities.User User { get; set; }
+
+        public IndexModel(DBContext context)
         {
-            _logger = logger;
+             _context = context;
         }
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
+            if(HttpContext.Session.GetInt32("UID") != null)
+            {
+                return RedirectToPage("Store/Index");
+            }
 
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostAsync() 
+        {
+            var user = await _context.Users.SingleOrDefaultAsync(x => x.Email == User.Email && x.Password == User.Password);
+            if (user != null)
+            {
+                HttpContext.Session.SetInt32("UID", user.Id);
+                return RedirectToPage("Store/Index");
+            }
+
+
+            return Page();
         }
     }
 }

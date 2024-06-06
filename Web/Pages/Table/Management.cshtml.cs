@@ -22,9 +22,11 @@ namespace Web.Pages.Table
 
         public IList<Domain.Entities.Table> Tables { get;set; } = default!;
 
-        public async Task OnGetAsync(int storeId)
+        public async Task OnGetAsync(int id)
         {
-            var itens = await this.GetStoreTables(storeId);
+            ViewData["StoreId"] = id;
+
+            var itens = await this.GetStoreTables(id);
             Tables = itens;
         }
 
@@ -38,14 +40,19 @@ namespace Web.Pages.Table
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage("./Management", new { storeId = table!.StoreId });
+            return RedirectToPage("./Management", new { id = table!.StoreId });
         }
 
         public async Task<IList<Domain.Entities.Table>> GetStoreTables(int storeId)
         {
-            return await _context.Tables
-                .Where(t => t.StoreId == storeId)
-                .ToListAsync();
+            var store = await _context.Stores
+                .Include(x => x.Tables)
+                .SingleOrDefaultAsync(x => x.Id == storeId);
+
+            if (store != null) 
+                return store.Tables;
+
+            return [];
         }
     }
 }

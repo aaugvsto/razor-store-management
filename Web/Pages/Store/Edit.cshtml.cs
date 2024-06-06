@@ -79,7 +79,7 @@ namespace Web.Pages.Store
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage("./", new { id = Store.Id });
+            return RedirectToPage("Edit", new { id = Store.Id });
         }
 
         private bool StoreExists(int id)

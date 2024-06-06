@@ -3,6 +3,8 @@
 
 @{
     ViewData["Title"] = "Edit";
+
+    var item = new  { };
 }
 
 <div class="mb-2">
@@ -55,7 +57,9 @@
 
     <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
         @{
-            await Html.RenderPartialAsync("_Tables", Model.Store.Tables.ToList());
+            await Html.RenderPartialAsync("_Tables",
+            Model.Store.Tables.ToList(),
+            new ViewDataDictionary(ViewData){ { "StoreId", Model.Store.Id } });           
         }
     </div>
 </div>
