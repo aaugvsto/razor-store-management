@@ -1,0 +1,54 @@
+﻿@{
+    dynamic[] menuItems = new dynamic[]
+    {
+        new { Text = "Minha conta", Controller = "User", Action = "Edit", Role = "CUSTOMER" },
+        new { Text = "Minhas lojas", Controller = "Store", Action = "Index", Role = "CUSTOMER" }
+    };
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Web.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row vh-100">
+            <div class="col-1 border-end p-0">
+                <div class="d-flex flex-column">
+                    @foreach (var item in menuItems)
+                    {
+                        <a 
+                            class="text-decoration-none text-dark text-center m-2" 
+                            asp-controller="@item.Controller" 
+                            asp-action="@item.Action" 
+                            asp-route-id="1"
+                        >
+                            <span class="ms-1">
+                                @item.Text
+                            </span>
+                        </a>
+                    }
+                </div>
+            </div>
+            <div class="col-11 p-0">
+                <main role="main" class="p-4">
+                    @RenderBody()
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://kit.fontawesome.com/b78c95af54.js" crossorigin="anonymous"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

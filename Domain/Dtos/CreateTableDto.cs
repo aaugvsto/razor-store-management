@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Dtos
+namespace Domain.Dtos
 {
    public record CreateTableDto(string Number, int SeatsNumber, bool IsAvailable, int StoreId);
 }
