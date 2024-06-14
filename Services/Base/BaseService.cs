@@ -52,5 +52,15 @@ namespace Services.Base
             dbSet.Update(entity);
             await context.SaveChangesAsync();
         }
+
+        public async Task<T?> Get(int id, string[] includes)
+        {
+            var query = dbSet.AsQueryable();
+
+            foreach(var include in includes)
+                query = query.Include(include);
+
+            return query.Single(x => x.Id == id);
+        }
     }
 }

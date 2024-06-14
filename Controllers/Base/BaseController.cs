@@ -80,6 +80,12 @@ namespace Controllers.Base
             return RedirectToAction("Index");
         }
 
+        public virtual async Task<IActionResult> Details(int id)
+        {
+            var model = await service.Get(id);
+            return View(model);
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

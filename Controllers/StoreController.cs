@@ -14,5 +14,12 @@ namespace WebMVC.Controllers
         public StoreController(IStoreService service) : base(service)
         {
         }
+        public async Task<IActionResult> TableManagement(int id)
+        {
+            ViewData["StoreId"] = id;
+
+            var model = await service.Get(id, new string[] { "Tables" });
+            return View(model!.Tables);
+        }
     }
 }

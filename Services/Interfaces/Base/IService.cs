@@ -13,6 +13,8 @@ namespace Services.Interfaces.Base
 
         Task<T?> Get(int id);
 
+        Task<T?> Get(int id, string[] includes);
+
         Task<T> Add(T entity);
 
         Task Remove(T entity);
