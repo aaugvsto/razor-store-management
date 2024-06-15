@@ -42,7 +42,6 @@ namespace Services.Base
 
         public async virtual Task Remove(T entity)
         {
-            dbSet.Attach(entity);
             dbSet.Remove(entity);
             await context.SaveChangesAsync();
         }

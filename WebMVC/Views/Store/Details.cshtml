@@ -28,11 +28,9 @@
         <a class="btn btn-primary me-2" asp-action="Index">
             Voltar
         </a>
-        <form method="post" asp-action="Delete" asp-route-id="@Model.Id">
-            <button type="submit" class="btn btn-danger">
-                Excluir
-            </button>
-        </form>
+        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.Id">
+            Excluir
+        </a>
     </div>
 </div>
 
@@ -47,7 +45,12 @@
 
         <a class="btn btn-primary w-100" asp-action="TableManagement" asp-route-id="@Model.Id">
             <i class="fa-solid fa-link"></i><br />
-            Gerenciador de mesas disponíveis
+            Gerenciador de assentos
+        </a>
+
+        <a class="btn btn-primary w-100" asp-controller="Table" asp-action="Index" asp-route-id="@Model.Id">
+            <i class="fa-solid fa-link"></i><br />
+            Gerenciador de mesas
         </a>
     </div>
 </div>

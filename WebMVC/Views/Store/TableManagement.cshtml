@@ -18,20 +18,22 @@
     {
         @foreach (var item in Model)
         {
-            <div class="col-sm-4 col-md-4 col-lg-2">
+            <div class="col-sm-12 col-md-4 col-lg-2 mb-2">
                 <div class="card shadow-sm">
-                    <div class="@(!item.IsAvailable ? "bg-danger" : "bg-success") card-img-top" style="height: 16px"></div>
+                    <div id="statusTableId-@item.Id" class="@(!item.IsAvailable ? "bg-danger" : "bg-success") card-img-top" style="height: 16px"></div>
                     <div class="card-body d-flex flex-column gap-4">
                         <span class="card-text">Table Number: @item.Number</span>
                         <span class="card-text">Capacity: @item.SeatsNumber</span>
-
-                        <form method="POST">
-                            <input type="hidden" name="@nameof(item.Id)" value="@item.Id" />
-                            <input type="hidden" name="@nameof(item.IsAvailable)" value="@(!item.IsAvailable ? "true" : "false")" />
-                            <button class="btn btn-primary w-100" type="submit">
+                        <div class="w-100 d-flex align-items-center justify-content-center">
+                            <input id="isAvailableTableId-@item.Id" class="visually-hidden" value="@(item.IsAvailable ? "True": "False")" />
+                            <button id="btn-tableId-@item.Id" class="btn btn-primary w-100" onclick="mudaStatusMesa(@item.Id)">
                                 @("Marcar como " + (item.IsAvailable ? "indisponível" : "disponível"))
                             </button>
-                        </form>
+
+                            <div id="loading-tableId-@item.Id" class="spinner-border text-secondary visually-hidden" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -44,3 +46,45 @@
         </div>
     }
 </div>
+
+@section Scripts {
+
+    <script>
+        const mudaStatusMesa = (idTable) => {
+            const isAvailable = $(`#isAvailableTableId-${idTable}`).val();
+
+            $.ajax({
+                url: `@Url.Action("ChangeTableStatus", "Table")?idTable=${idTable}`,
+                type: 'POST',
+                contentType: 'application/json',
+                beforeSend: () => {
+                    $(`#btn-tableId-${idTable}`).hide();
+                    $(`#loading-tableId-${idTable}`).removeClass('visually-hidden');
+                },
+                success: () => {
+                    $(`#loading-tableId-${idTable}`).addClass('visually-hidden');
+
+                    if (isAvailable === 'True') {
+                        $(`#statusTableId-${idTable}`).removeClass('bg-success');
+                        $(`#statusTableId-${idTable}`).addClass('bg-danger');
+                        $(`#btn-tableId-${idTable}`).text("Marcar como disponível");
+                        $(`#isAvailableTableId-${idTable}`).val('False');
+                        $(`#btn-tableId-${idTable}`).show();
+                        return;
+                    }
+
+                    $(`#statusTableId-${idTable}`).removeClass('bg-danger');
+                    $(`#statusTableId-${idTable}`).addClass('bg-success');
+                    $(`#btn-tableId-${idTable}`).text("Marcar como indisponível");
+                    $(`#isAvailableTableId-${idTable}`).val('True');
+                    $(`#btn-tableId-${idTable}`).show();
+                },
+                error: () => {
+                    $(`#loading-tableId-${idTable}`).addClass('visually-hidden');
+                    $(`#btn-tableId-${idTable}`).show();
+                }
+            })
+        }
+    </script>
+
+}           

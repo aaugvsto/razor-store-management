@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,7 @@ namespace Domain.Entities
 {
     public class Table : Entity
     {
-        public int StoreId { get; set; }
+        public int? StoreId { get; set; }
 
         [Display(Name = "Número")]
         [Required(ErrorMessage = "O campo Número é obrigatório.")]
@@ -24,6 +25,15 @@ namespace Domain.Entities
         [Required(ErrorMessage = "O campo Mesa disponível é obrigatório.")]
         public bool IsAvailable { get; set; }
 
-        public virtual Store Store { get; set; }
+        public virtual Store? Store { get; set; }
+
+        [NotMapped]
+        public string DisponivelGrid 
+        { 
+            get 
+            {
+                return IsAvailable ? "Sim" : "Não";
+            } 
+        }
     }
 }

@@ -1,7 +1,6 @@
 ﻿@model IEnumerable<Store>
 
 @{
-    ViewData["Title"] = "View";
 }
 
 <div class="row">
@@ -20,7 +19,7 @@
 <div class="row">
     @foreach (var item in Model)
     {
-        <a asp-action="Details" asp-route-id="@item.Id" class="col-lg-3 col-md-3 col-sm-3">
+        <a asp-action="Details" asp-route-id="@item.Id" class="col-lg-2 col-md-4 col-sm-4">
             <div class="card shadow-sm">
                 <img class="card-img-top" src="data:image/jpg;base64,@item.ImageBase64" />
                 <div class="card-body text-center fw-bold fs-4">

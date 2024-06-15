@@ -21,7 +21,7 @@ namespace Controllers.Base
             this.service = service;
         }
 
-        public virtual async Task<IActionResult> Index()
+        public async Task<IActionResult> Index()
         {
             var model = await service.GetAll();
             return View(model);
