@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess
 {
-    public class DBContext : IdentityDbContext<IdentityUser>
+    public class DBContext : DbContext
     {
         public DBContext()
         {
