@@ -49,10 +49,10 @@ namespace Controllers.Base
             if(ModelState.IsValid) 
             {
                 await service.Add(model);
-                return View(model);
+                return RedirectToAction("Index");
             }
 
-            return RedirectToAction("Index");
+            return View(model);
         }
 
         /// <summary>

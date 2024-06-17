@@ -34,7 +34,7 @@ namespace Domain.Entities
         [Required(ErrorMessage = "O campo Logo é obrigatório.")]
         public string ImageBase64 { get; set; }
 
-        public virtual User User { get; set; }
+        public virtual User? User { get; set; }
         public virtual IList<Table> Tables { get; set; }
     }
 }
