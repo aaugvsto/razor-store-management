@@ -19,6 +19,9 @@ namespace WebMVC.Controllers
             this.service = service;
         }
 
+        /// <summary>
+        /// Show the entity Index view
+        /// </summary>
         public async Task<IActionResult> Index(int id)
         {
             ViewData["StoreId"] = id;
@@ -28,6 +31,10 @@ namespace WebMVC.Controllers
             return View(model.Where(x => x.StoreId == id).ToList());
         }
 
+        /// <summary>
+        /// Show the entity Create view
+        /// </summary>
+        /// <param name="id">Id of the store the table belongs to</param>
         public IActionResult Create(int id)
         {
             var model = new Table
@@ -39,6 +46,10 @@ namespace WebMVC.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Create the entity posted from the Create view
+        /// </summary>
+        /// <param name="model">Model posted from Create view</param>
         [HttpPost]
         public async Task<IActionResult> Create(Table model)
         {
@@ -54,12 +65,20 @@ namespace WebMVC.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Show the entity Edit view
+        /// </summary>
+        /// <param name="id">Id of the entity being edited</param>
         public async Task<IActionResult> Edit(int id)
         {
             var model = await service.Get(id);
             return View(model);
         }
 
+        /// <summary>
+        /// Edit the entity posted from the Edit view
+        /// </summary>
+        /// <param name="model">Model posted from Edit view</param>
         [HttpPost]
         public async Task<IActionResult> Edit(Table model)
         {
@@ -72,12 +91,20 @@ namespace WebMVC.Controllers
             return RedirectToAction("Index");
         }
 
+        /// <summary>
+        /// Show the entity Delete view
+        /// </summary>
+        /// <param name="id">Id of the entity being deleted</param>
         public async Task<IActionResult> Delete(int id)
         {
             var model = await service.Get(id);
             return View(model);
         }
 
+        /// <summary>
+        /// Delete the entity posted from Delete view
+        /// </summary>
+        /// <param name="entity">Entity posted from Delete view</param>
         [HttpPost]
         public async Task<IActionResult> Delete(Table entity)
         {
@@ -89,12 +116,20 @@ namespace WebMVC.Controllers
             return RedirectToAction("Index");
         }
 
+        /// <summary>
+        /// Show the entity Details view
+        /// </summary>
+        /// <param name="id">Id of the entity being detailed</param>
         public async Task<IActionResult> Details(int id)
         {
             var model = await service.Get(id);
             return View(model);
         }
 
+        /// <summary>
+        /// Change the table status to unavailable or available
+        /// </summary>
+        /// <param name="idTable">Id of the table to modified</param>
         [HttpPost]
         public async Task<IActionResult> ChangeTableStatus(int idTable)
         {
@@ -114,6 +149,9 @@ namespace WebMVC.Controllers
             }
         }
 
+        /// <summary>
+        /// Show the Error view
+        /// </summary>
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

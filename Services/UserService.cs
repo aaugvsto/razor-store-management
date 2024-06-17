@@ -18,6 +18,11 @@ namespace Services
         {
         }
 
+        /// <summary>
+        /// Authenticates a user based on the provided login data transfer object (DTO).
+        /// </summary>
+        /// <param name="dto">The login DTO containing the email and password.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains a boolean value indicating whether the authentication was successful.</returns>
         public async Task<bool> Authenticate(LoginDto dto)
         {
             return await dbSet.AnyAsync(x => x.Email == dto.Email && x.Password == dto.Password);

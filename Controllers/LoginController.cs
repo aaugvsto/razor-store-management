@@ -19,12 +19,18 @@ namespace WebMVC.Controllers
             userService = service;
         }
 
+        /// <summary>
+        /// Show the Login view
+        /// </summary>
         public IActionResult Login()
         {
             User model = new();
             return View(model);
         }
 
+        /// <summary>
+        /// Authenticates the user 
+        /// </summary>
         [HttpPost]
         public async Task<IActionResult> Login(LoginDto dto)
         {

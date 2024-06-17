@@ -18,6 +18,10 @@ namespace WebMVC.Controllers
             this.tableService = tableService;
         }
 
+        /// <summary>
+        /// Show the TableManagement view
+        /// </summary>
+        /// <param name="id">Id of the store that will be managing it</param>
         public async Task<IActionResult> TableManagement(int id)
         {
             ViewData["StoreId"] = id;
@@ -32,20 +36,28 @@ namespace WebMVC.Controllers
             return View(await model);
         }
 
+        /// <summary>
+        /// Delete a store's table
+        /// </summary>
+        /// <param name="idTable">Id of the table that will be deleted</param>
+        /// <exception cref="ArgumentOutOfRangeException">Throw if the number is less than or equal to zero</exception>
         [HttpPost]
         public async Task<IActionResult> DeleteTable(int idTable)
         {
             try
             {
-                if (idTable <= 0)
-                    throw new Exception();
+                ArgumentOutOfRangeException.ThrowIfNegativeOrZero(idTable);
 
                 var table = await tableService.Get(idTable);
 
-                //if (table != null)
-                //    await tableService.Remove(table);
+                if (table != null)
+                    await tableService.Remove(table);
 
                 return NoContent();
+            }
+            catch(ArgumentOutOfRangeException)
+            {
+                return BadRequest();
             }
             catch
             {
