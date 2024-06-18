@@ -22,7 +22,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Controllers\Controllers.csproj" />
     <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
-    <ProjectReference Include="..\Domain\Models.csproj" />
   </ItemGroup>
 
 </Project>
