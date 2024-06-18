@@ -1,6 +1,6 @@
 ﻿using DataAccess;
-using Domain.Dtos;
-using Domain.Entities;
+using Models.Dtos;
+using Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using Services.Base;
 using Services.Interfaces;

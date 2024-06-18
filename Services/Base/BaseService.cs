@@ -1,5 +1,5 @@
 ﻿using DataAccess;
-using Domain.Entities.Base;
+using Models.Entities.Base;
 using Microsoft.EntityFrameworkCore;
 using Services.Interfaces.Base;
 using System;

@@ -1,6 +1,6 @@
 using Controllers.Base;
-using Domain.Entities;
-using Domain.ViewModels;
+using Models.Entities;
+using Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Services.Interfaces;
@@ -83,12 +83,9 @@ namespace WebMVC.Controllers
         public async Task<IActionResult> Edit(Table model)
         {
             if (ModelState.IsValid)
-            {
-                await service.Add(model);
-                return View(model);
-            }
+                await service.Update(model);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new{ id = model.StoreId });
         }
 
         /// <summary>
@@ -113,7 +110,7 @@ namespace WebMVC.Controllers
                 await service.Remove(entity);
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { id = entity.StoreId });
         }
 
         /// <summary>

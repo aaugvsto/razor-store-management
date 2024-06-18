@@ -1,5 +1,5 @@
-﻿using Domain.Entities.Base;
-using Domain.ViewModels;
+﻿using Models.Entities.Base;
+using Models.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces.Base;

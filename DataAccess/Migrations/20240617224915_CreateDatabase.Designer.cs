@@ -25,7 +25,7 @@ namespace DataAccess.Migrations
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
-            modelBuilder.Entity("Domain.Entities.Store", b =>
+            modelBuilder.Entity("Models.Entities.Store", b =>
                 {
                     b.Property<int?>("Id")
                         .ValueGeneratedOnAdd()
@@ -60,7 +60,7 @@ namespace DataAccess.Migrations
                     b.ToTable("STORES", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Entities.Table", b =>
+            modelBuilder.Entity("Models.Entities.Table", b =>
                 {
                     b.Property<int?>("Id")
                         .ValueGeneratedOnAdd()
@@ -90,7 +90,7 @@ namespace DataAccess.Migrations
                     b.ToTable("TABLES", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Entities.User", b =>
+            modelBuilder.Entity("Models.Entities.User", b =>
                 {
                     b.Property<int?>("Id")
                         .ValueGeneratedOnAdd()
@@ -121,9 +121,9 @@ namespace DataAccess.Migrations
                     b.ToTable("USERS", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Entities.Store", b =>
+            modelBuilder.Entity("Models.Entities.Store", b =>
                 {
-                    b.HasOne("Domain.Entities.User", "User")
+                    b.HasOne("Models.Entities.User", "User")
                         .WithMany("Stores")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -132,9 +132,9 @@ namespace DataAccess.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Table", b =>
+            modelBuilder.Entity("Models.Entities.Table", b =>
                 {
-                    b.HasOne("Domain.Entities.Store", "Store")
+                    b.HasOne("Models.Entities.Store", "Store")
                         .WithMany("Tables")
                         .HasForeignKey("StoreId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -143,12 +143,12 @@ namespace DataAccess.Migrations
                     b.Navigation("Store");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Store", b =>
+            modelBuilder.Entity("Models.Entities.Store", b =>
                 {
                     b.Navigation("Tables");
                 });
 
-            modelBuilder.Entity("Domain.Entities.User", b =>
+            modelBuilder.Entity("Models.Entities.User", b =>
                 {
                     b.Navigation("Stores");
                 });

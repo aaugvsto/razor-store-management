@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Domain.Entities;
+using Models.Entities;
 
 namespace DataAccess.Mapping
 {
@@ -22,7 +22,7 @@ namespace DataAccess.Mapping
 
             builder.HasIndex(e => e.StoreId);
 
-            builder.Property(e => e.Number)
+            builder.Property(e => e.Identifier)
                 .IsRequired()
                 .HasMaxLength(255);
 

@@ -5,7 +5,7 @@
 
 <div class="row">
     <div class="col-6 d-flex justify-content-start">
-        <h3>Minhas Lojas</h3>
+        <h4>Minhas Lojas</h4>
     </div>
     <div class="col-6 d-flex justify-content-end">
         <a class="btn btn-primary" asp-action="Create">
@@ -17,16 +17,27 @@
 <hr />
 
 <div class="row">
-    @foreach (var item in Model)
+    @if (Model.Any())
     {
-        <a asp-action="Details" asp-route-id="@item.Id" class="col-lg-2 col-md-4 col-sm-4">
-            <div class="card shadow-sm">
-                <img class="card-img-top" src="data:image/jpg;base64,@item.ImageBase64" />
-                <div class="card-body text-center fw-bold fs-4">
-                    <span>@item.Name</span>
+        @foreach (var item in Model)
+        {
+            <a asp-action="Details" asp-route-id="@item.Id" class="col-lg-2 col-md-4 col-sm-4">
+                <div class="card shadow-sm">
+                    <img class="card-img-top" src="data:image/jpg;base64,@item.ImageBase64" />
+                    <div class="card-body text-center fw-bold fs-4">
+                        <span>@item.Name</span>
+                    </div>
                 </div>
+            </a>
+        }
+    }
+    else
+    {
+        <div class="col-12">
+            <div class="alert alert-info" role="alert">
+                Você ainda não cadastrou nenhuma loja.
             </div>
-        </a>
+        </div>
     }
 </div>
 

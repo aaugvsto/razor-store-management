@@ -4,11 +4,15 @@
     ViewData["Title"] = "TableManagement";
 }
 
-<div>
-    <a class="btn btn-primary" asp-action="Details" asp-route-id="@ViewData["StoreId"]">
-        <i class="fa fa-arrow-left"></i>
-        Voltar
-    </a>
+<div class="row">
+    <div class="col-6 d-flex justify-content-start">
+        <h4>Controle de assentos</h4>
+    </div>
+    <div class="col-6 d-flex justify-content-end">
+        <a class="btn btn-primary" asp-action="Details" asp-route-id="@ViewData["StoreId"]">
+            Voltar
+        </a>
+    </div>
 </div>
 
 <hr />
@@ -22,8 +26,12 @@
                 <div class="card shadow-sm">
                     <div id="statusTableId-@item.Id" class="@(!item.IsAvailable ? "bg-danger" : "bg-success") card-img-top" style="height: 16px"></div>
                     <div class="card-body d-flex flex-column gap-4">
-                        <span class="card-text">Table Number: @item.Number</span>
-                        <span class="card-text">Capacity: @item.SeatsNumber</span>
+                        <span class="card-text">
+                            @Html.DisplayNameFor(x => x.Identifier):<br /> <strong>@item.Identifier</strong>
+                        </span>
+                        <span class="card-text">
+                            @Html.DisplayNameFor(x => x.SeatsNumber):<br /> <strong>@item.SeatsNumber</strong>
+                        </span>
                         <div class="w-100 d-flex align-items-center justify-content-center">
                             <input id="isAvailableTableId-@item.Id" class="visually-hidden" value="@(item.IsAvailable ? "True": "False")" />
                             <button id="btn-tableId-@item.Id" class="btn btn-primary w-100" onclick="mudaStatusMesa(@item.Id)">
@@ -41,8 +49,10 @@
     }
     else
     {
-        <div class="d-flex justify-content-center">
-            <span>Nenhuma mesa cadastrada.</span>
+        <div class="col-12">
+            <div class="alert alert-info" role="alert">
+                Nenhuma mesa cadastrada neste estabelecimento.
+            </div>
         </div>
     }
 </div>

@@ -4,7 +4,7 @@
     var storeId = ViewData["StoreId"];
 }
 
-<div class="mt-4 d-flex flex-column">
+<div class="d-flex flex-column">
     <div class="row">
         <div class="col-6">
             <h4>Gerenciar mesas</h4>
@@ -18,48 +18,56 @@
     <hr />
 
     <div class="mt-2">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        Identificador
-                    </th>
-                    <th>
-                        Número de assentos
-                    </th>
-                    <th>
-                        Mesa disponível
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr id="tr-table-@item.Id">
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Number)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.SeatsNumber)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DisponivelGrid)
-                        </td>
-                        <td class="d-flex gap-2">
-                            <button class="btn btn-primary" asp-controller="Table" asp-action="Edit" asp-route-id="@item.Id">
-                                <i class="fa fa-edit"></i>
-                            </button>
-                            <button class="btn btn-danger" onclick="excluirMesa(@item.Id)">
-                                <i class="fa fa-trash"></i>
-                            </button>
-                            <div id="loading" class="spinner-border text-secondary visually-hidden" role="status">
-                                <span class="sr-only">Loading...</span>
-                            </div>
-                        </td>
+        @if (Model.Any())
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(x => x[0].Identifier)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(x => x[0].SeatsNumber)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(x => x[0].IsAvailableDisplay)
+                        </th>
+                        <th></th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr id="tr-table-@item.Id">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Identifier)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SeatsNumber)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IsAvailableDisplay)
+                            </td>
+                            <td class="d-flex gap-2">
+                                <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="col-12">
+                <div class="alert alert-info" role="alert">
+                    Você ainda não cadastrou nenhuma mesa.
+                </div>
+            </div>
+        }
     </div>
 </div>

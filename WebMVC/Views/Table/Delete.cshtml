@@ -1,0 +1,41 @@
+﻿@model Models.Entities.Table
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h3>Você tem certeza que deseja deletar a mesa "@Model.Identifier"?</h3>
+
+<hr />
+
+<div>
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Identifier)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Identifier)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.SeatsNumber)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.SeatsNumber)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IsAvailable)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IsAvailableDisplay)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="Identifier" />
+        <input type="hidden" asp-for="SeatsNumber" />
+        <input type="hidden" asp-for="StoreId" />
+        <input type="submit" value="Deletar" class="btn btn-danger" /> |
+        <a class="btn btn-primary" asp-action="Index" asp-route-id="@Model.StoreId">Voltar</a>
+    </form>
+</div>

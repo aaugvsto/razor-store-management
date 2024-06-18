@@ -1,7 +1,7 @@
 using Controllers.Base;
-using Domain.Dtos;
-using Domain.Entities;
-using Domain.ViewModels;
+using Models.Dtos;
+using Models.Entities;
+using Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Services.Interfaces;

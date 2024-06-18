@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Dtos
+namespace Models.Dtos
 {
     public record CreateUserDto (string FullName, string Email, string Password);
 }

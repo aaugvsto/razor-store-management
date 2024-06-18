@@ -1,4 +1,4 @@
-﻿using Domain.Entities.Base;
+﻿using Models.Entities.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
