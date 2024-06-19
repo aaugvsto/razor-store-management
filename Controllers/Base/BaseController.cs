@@ -74,7 +74,7 @@ namespace Controllers.Base
         {
             if (ModelState.IsValid)
             {
-                await service.Add(model);
+                await service.Update(model);
                 return View(model);
             }
 

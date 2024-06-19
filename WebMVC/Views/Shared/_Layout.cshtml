@@ -1,8 +1,8 @@
 ﻿@{
     dynamic[] menuItems = new dynamic[]
     {
-        new { Text = "Minha conta", Controller = "User", Action = "Edit", Role = "CUSTOMER" },
-        new { Text = "Minhas lojas", Controller = "Store", Action = "Index", Role = "CUSTOMER" }
+        new { Text = "Minha conta", Icon = "fa-solid fa-user", Controller = "User", Action = "Edit", Role = "CUSTOMER" },
+        new { Text = "Minhas lojas", Icon = "fa-solid fa-shop", Controller = "Store", Action = "Index", Role = "CUSTOMER" }
     };
 }
 
@@ -29,7 +29,8 @@
                             asp-action="@item.Action" 
                             asp-route-id="1"
                         >
-                            <span class="ms-1">
+                            <i class="@item.Icon"></i><br />
+                            <span class="ms-1 text-menu">
                                 @item.Text
                             </span>
                         </a>
@@ -48,6 +49,20 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="https://kit.fontawesome.com/b78c95af54.js" crossorigin="anonymous"></script>
+
+    <script>
+        $(window).resize(function () {
+            if ($(window).width() < 1100) {
+                $('.text-menu').hide();
+            } else {
+                $('.text-menu').show();
+            }
+        });
+
+        if ($(window).width() < 1100) {
+            $('.text-menu').hide();
+        }
+    </script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

@@ -32,8 +32,13 @@
         </dd>
     </dl>
     
-    <form asp-action="Index">
+    <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="Name" />
+        <input type="hidden" asp-for="Address" />
+        <input type="hidden" asp-for="Phone" />
+        <input type="hidden" asp-for="ImageBase64" />
+        <input type="hidden" asp-for="UserId" />
         <input type="submit" value="Deletar" class="btn btn-danger" /> |
         <a class="btn btn-primary" asp-controller="Store" asp-action="Details" asp-route-id="@Model.Id" >Cancelar</a>
     </form>

@@ -53,16 +53,18 @@ namespace WebMVC.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Table model)
         {
-            if (ModelState.IsValid)
-            {
-                if (model.Id != null || model.Id != 0)
-                    model.Id = 0;
+            if (model.Id != null || model.Id != 0)
+                model.Id = 0;
 
-                await service.Add(model);
-                return RedirectToAction("Index", new { id = model.StoreId });
-            }
+            var tables = await service.GetAll();
+            if (tables.Any(x => string.Equals(model.Identifier, x.Identifier, StringComparison.OrdinalIgnoreCase) && x.StoreId == model.StoreId))
+                ModelState.AddModelError("Identifier", "Outra mesa já foi cadastrada com este mesmo identificador.");
 
-            return View(model);
+            if (!ModelState.IsValid)
+                return View(model);
+
+            await service.Add(model);
+            return RedirectToAction("Index", new { id = model.StoreId });
         }
 
         /// <summary>

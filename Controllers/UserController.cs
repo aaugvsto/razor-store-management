@@ -14,5 +14,18 @@ namespace WebMVC.Controllers
         public UserController(IUserService service) : base(service)
         {
         }
+
+        [HttpPost]
+        public override async Task<IActionResult> Edit(User model)
+        {
+            model.IsActive = true;
+
+            if (!ModelState.IsValid)
+                return View(model);
+
+
+            await service.Update(model);
+            return RedirectToAction("Index", "Store");
+        }
     }
 }
